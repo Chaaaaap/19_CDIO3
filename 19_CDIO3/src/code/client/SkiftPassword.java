@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import code.client.dal.IOperatoerDAO.DALException;
 import code.client.dal.OperatoerDAO;
 import code.client.dal.OperatoerDTO;
 
@@ -71,7 +72,11 @@ public class SkiftPassword extends Composite {
 			}
 			
 			if(newPassword1.equals(newPassword2) && oldPassword.equals(opr.getPassword())) {
-				opr.setPassword(newPassword2);
+				try {
+					opr.setPassword(newPassword2);
+				} catch(DALException e) {
+					Window.alert(e.getMessage());
+				}
 				Window.alert("Dit nye password er nu gemt.");
 			} else {
 				Window.alert("Du har skrevet forkert i et af felterne.");

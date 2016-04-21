@@ -1,5 +1,7 @@
 package code.client.dal;
 
+import code.client.dal.IOperatoerDAO.DALException;
+
 public class OperatoerDTO {
 	
 	private int oprID;
@@ -62,9 +64,32 @@ public class OperatoerDTO {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	public void setPassword(String password)  throws DALException{
+			int capitalLetter = 0;
+			int smallLetter = 0;
+			int number = 0;
+			int passwordLength = 0;
+			if(password.length() >= 6) {
+				for(int i = 0; i < password.length(); i++){
+					if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') {
+						capitalLetter = 1;
+					}
+					if(password.charAt(i) >= 'a' && password.charAt(i) <= 'z') {
+						smallLetter = 1;
+					}
+					if(password.charAt(i) >= '0' && password.charAt(i) <= '9'){
+						number = 1;
+					}
+				}
+				if(capitalLetter+smallLetter+number+passwordLength >= 3) {
+					this.password = password;
+				}
+				throw new DALException("Passwordet skal indeholde minimum et stort tegn, et lille tegn og et tal.");
+			} else {
+				throw new DALException("Passwordet skal minimum være 6 tegn langt.");
+			}
+		}
+	
 
 	public boolean loggedIn() {
 		return loggedIn;
