@@ -71,15 +71,13 @@ public class SkiftPassword extends Composite {
 					this.opr = opr;
 			}
 			
-			if(newPassword1.equals(newPassword2) && oldPassword.equals(opr.getPassword())) {
-				try {
-					opr.setPassword(newPassword2);
-				} catch(DALException e) {
-					Window.alert(e.getMessage());
+			try {
+				if(opr.setPassword(newPassword1, newPassword2, oldPassword)) {
+					Window.alert("Dit password er nu ændret.");
 				}
-				Window.alert("Dit nye password er nu gemt.");
-			} else {
-				Window.alert("Du har skrevet forkert i et af felterne.");
+				
+			} catch(DALException e) {
+				Window.alert(e.getMessage());
 			}
 		}
 		

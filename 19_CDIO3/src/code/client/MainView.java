@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import code.client.dal.IOperatoerDAO.DALException;
 import code.client.dal.OperatoerDAO;
 
 public class MainView extends Composite {
@@ -12,7 +13,7 @@ public class MainView extends Composite {
 	private VerticalPanel contentPanel = new VerticalPanel();
 	private OperatoerDAO oprDAO;
 	
-	public MainView(OperatoerDAO operatoerDAO) {
+	public MainView(OperatoerDAO operatoerDAO) throws DALException {
 		initWidget(vPanel);
 		oprDAO = operatoerDAO;
 		MainMenu menu = new MainMenu(this, oprDAO);
@@ -23,7 +24,7 @@ public class MainView extends Composite {
 		vPanel.add(contentPanel);
 	}
 	
-	public MainView() {
+	public MainView() throws DALException {
 		initWidget(vPanel);
 		oprDAO = new OperatoerDAO();
 		MainMenu menu = new MainMenu(this, oprDAO);

@@ -3,6 +3,8 @@ package code.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import code.client.dal.IOperatoerDAO.DALException;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
@@ -15,7 +17,11 @@ public class _9_CDIO3 implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		mainView = new MainView();
+		try {
+			mainView = new MainView();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 		
 		RootPanel.get().add(mainView);
 	}

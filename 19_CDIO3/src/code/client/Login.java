@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import code.client.dal.IOperatoerDAO.DALException;
 import code.client.dal.OperatoerDAO;
 import code.client.dal.OperatoerDTO;
 
@@ -27,7 +28,7 @@ public class Login extends Composite {
 	private MainView main;
 	private MainMenu menu;
 
-	public Login(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
+	public Login(MainView main, OperatoerDAO oprDAO, MainMenu menu) throws DALException {
 		initWidget(vPanel);
 		this.main = main;
 		this.menu = menu;
@@ -51,24 +52,24 @@ public class Login extends Composite {
 	}
 
 	private final class ClickHandlerImplementation implements ClickHandler {
-		
+
 		private MainView main;
 		private OperatoerDAO oprDAO;
 		private OperatoerDTO oprDTO;
-		
+
 		public ClickHandlerImplementation(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
 			this.main = main;
 			this.oprDAO = oprDAO;
 		}
-		
+
 		@Override
 		public void onClick(ClickEvent event) {
 			String userName = txt.getText();
 			String passwordEntered = pTxt.getText();
 			String passwordReal = "";
 			ArrayList<OperatoerDTO> oprList = oprDAO.getOperatoerer();
-			
-			
+
+
 			for (OperatoerDTO operatoerDTO : oprList) {
 				if(operatoerDTO.getOprID() == Integer.parseInt(userName)) {
 					oprDTO = operatoerDTO;
@@ -77,13 +78,13 @@ public class Login extends Composite {
 			}
 			if(passwordEntered.equals(passwordReal)) {
 				if(oprDTO.isActive()) {
-				oprDTO.logIn();
-				menu.setButtonsVisible();
-				this.main.clearMain();
+					oprDTO.logIn();
+					menu.setButtonsVisible();
+					this.main.clearMain();
 				} else {
 					Window.alert("Din bruger er deaktiveret!");
 				}
-				
+
 			} else {
 				Window.alert("Operatør ID og adgangskode passer ikke sammen!");
 			}

@@ -3,7 +3,7 @@ package code.client.dal;
 import code.client.dal.IOperatoerDAO.DALException;
 
 public class OperatoerDTO {
-	
+
 	private int oprID;
 	private String oprNavn;
 	private String ini;
@@ -11,7 +11,7 @@ public class OperatoerDTO {
 	private String password;
 	private boolean active;
 	private boolean loggedIn;
-	
+
 	public OperatoerDTO(int oprID, String oprNavn, String ini, String cpr, String password) {
 		this.oprID = oprID;
 		this.oprNavn = oprNavn;
@@ -20,7 +20,7 @@ public class OperatoerDTO {
 		this.password = password;
 		active = true;
 	}
-	
+
 	public boolean isActive() {
 		return active;
 	}
@@ -64,40 +64,51 @@ public class OperatoerDTO {
 		return password;
 	}
 
-	public void setPassword(String password)  throws DALException{
-			int capitalLetter = 0;
-			int smallLetter = 0;
-			int number = 0;
-			int passwordLength = 0;
-			if(password.length() >= 6) {
-				for(int i = 0; i < password.length(); i++){
-					if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') {
-						capitalLetter = 1;
+	public boolean setPassword(String password, String password2, String oldPassword)  throws DALException{
+		int capitalLetter = 0;
+		int smallLetter = 0;
+		int number = 0;
+		int passwordLength = 0;
+
+		if(oldPassword.equals(this.password)) {
+			if(password.equals(password2)) {
+				if(password.length() >= 6) {
+					for(int i = 0; i < password.length(); i++){
+						if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') {
+							capitalLetter = 1;
+						}
+						if(password.charAt(i) >= 'a' && password.charAt(i) <= 'z') {
+							smallLetter = 1;
+						}
+						if(password.charAt(i) >= '0' && password.charAt(i) <= '9'){
+							number = 1;
+						}
 					}
-					if(password.charAt(i) >= 'a' && password.charAt(i) <= 'z') {
-						smallLetter = 1;
+					if(capitalLetter+smallLetter+number+passwordLength >= 3) {
+						this.password = password;
+						return true;
+					} else {
+						throw new DALException("Passwordet skal indeholde minimum et stort tegn, et lille tegn og et tal.");
 					}
-					if(password.charAt(i) >= '0' && password.charAt(i) <= '9'){
-						number = 1;
-					}
+				} else {
+					throw new DALException("Passwordet skal minimum være 6 tegn langt.");
 				}
-				if(capitalLetter+smallLetter+number+passwordLength >= 3) {
-					this.password = password;
-				}
-				throw new DALException("Passwordet skal indeholde minimum et stort tegn, et lille tegn og et tal.");
 			} else {
-				throw new DALException("Passwordet skal minimum være 6 tegn langt.");
+				throw new DALException("Dit nye password var ikke ens.");
 			}
+		} else {
+			throw new DALException("Dit gamle password er ikke indtastet korrekt.");
 		}
-	
+	}
+
 
 	public boolean loggedIn() {
 		return loggedIn;
 	}
-	
+
 	public void logIn() {
 		this.loggedIn = true;
 	}
 
-	
+
 }

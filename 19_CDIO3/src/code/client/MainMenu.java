@@ -2,10 +2,12 @@ package code.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
+import code.client.dal.IOperatoerDAO.DALException;
 import code.client.dal.OperatoerDAO;
 
 public class MainMenu extends Composite {
@@ -146,9 +148,14 @@ public class MainMenu extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			main.clearMain();
-			Login login = new Login(main, oprDAO, menu);
-			main.attach(login);
-			menu.setButtonsInvisible();
+			Login login;
+			try {
+				login = new Login(main, oprDAO, menu);
+				main.attach(login);
+				menu.setButtonsInvisible();
+			} catch (DALException e) {
+				Window.alert(e.getMessage());
+			}
 		}
 		
 	}
