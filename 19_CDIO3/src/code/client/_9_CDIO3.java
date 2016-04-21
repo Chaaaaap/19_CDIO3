@@ -15,8 +15,6 @@ public class _9_CDIO3 implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-//		operatoerDAO = new OperatoerDAO();
-//		mainView = new MainView(operatoerDAO);
 		mainView = new MainView();
 		
 		RootPanel.get().add(mainView);
