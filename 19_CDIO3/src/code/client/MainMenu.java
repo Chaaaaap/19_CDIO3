@@ -1,5 +1,7 @@
 package code.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -9,6 +11,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 
 import code.client.dal.IOperatoerDAO.DALException;
 import code.client.dal.OperatoerDAO;
+import code.client.dal.OperatoerDTO;
 
 public class MainMenu extends Composite {
 
@@ -18,32 +21,32 @@ public class MainMenu extends Composite {
 	private Button skiftPassword;
 	private Button administrerBrugere;
 	private Button logout;
-	
-//	public MainMenu(MainView main) {
-//
-//		initWidget(hPanel);
-//		this.main = main;
-//
-//		afvej = new Button("Afvej");
-//		skiftPassword = new Button("Skift password");
-//		administrerBrugere = new Button("Administrer brugere");
-//		logout = new Button("Log ud");
-//
-//		afvej.addClickHandler(new AfvejHandler(this.main));
-//		afvej.setVisible(false);
-//		skiftPassword.addClickHandler(new PasswordHandler(this.main));
-//		skiftPassword.setVisible(false);
-//		administrerBrugere.addClickHandler(new AdministrerBrugere(this.main));
-//		administrerBrugere.setVisible(false);
-//		logout.addClickHandler(new LogoutHandler(this.main, oprDAO, this));
-//		logout.setVisible(false);
-//
-//		hPanel.add(afvej);
-//		hPanel.add(skiftPassword);
-//		hPanel.add(administrerBrugere);
-//		hPanel.add(logout);
-//
-//	}
+
+	//	public MainMenu(MainView main) {
+	//
+	//		initWidget(hPanel);
+	//		this.main = main;
+	//
+	//		afvej = new Button("Afvej");
+	//		skiftPassword = new Button("Skift password");
+	//		administrerBrugere = new Button("Administrer brugere");
+	//		logout = new Button("Log ud");
+	//
+	//		afvej.addClickHandler(new AfvejHandler(this.main));
+	//		afvej.setVisible(false);
+	//		skiftPassword.addClickHandler(new PasswordHandler(this.main));
+	//		skiftPassword.setVisible(false);
+	//		administrerBrugere.addClickHandler(new AdministrerBrugere(this.main));
+	//		administrerBrugere.setVisible(false);
+	//		logout.addClickHandler(new LogoutHandler(this.main, oprDAO, this));
+	//		logout.setVisible(false);
+	//
+	//		hPanel.add(afvej);
+	//		hPanel.add(skiftPassword);
+	//		hPanel.add(administrerBrugere);
+	//		hPanel.add(logout);
+	//
+	//	}
 
 	public MainMenu(MainView main, OperatoerDAO oprDAO) {
 
@@ -59,7 +62,7 @@ public class MainMenu extends Composite {
 		afvej.setVisible(false);
 		skiftPassword.addClickHandler(new PasswordHandler(this.main, oprDAO));
 		skiftPassword.setVisible(false);
-		administrerBrugere.addClickHandler(new AdministrerBrugere(this.main));
+		administrerBrugere.addClickHandler(new AdministrerBrugere(this.main, oprDAO));
 		administrerBrugere.setVisible(false);
 		logout.addClickHandler(new LogoutHandler(this.main, oprDAO, this));
 		logout.setVisible(false);
@@ -76,7 +79,7 @@ public class MainMenu extends Composite {
 		administrerBrugere.setVisible(true);
 		logout.setVisible(true);
 	}
-	
+
 	public void setButtonsInvisible() {
 		afvej.setVisible(false);
 		skiftPassword.setVisible(false);
@@ -121,32 +124,55 @@ public class MainMenu extends Composite {
 	private class AdministrerBrugere implements ClickHandler {
 
 		private MainView main;
+		private OperatoerDAO oprDAO;
+		private OperatoerDTO opr;
+		private ArrayList<OperatoerDTO> oprList;
 
-		public AdministrerBrugere(MainView main) {
+		public AdministrerBrugere(MainView main, OperatoerDAO oprDAO) {
 			this.main = main;
+			this.oprDAO = oprDAO;
+			oprList = oprDAO.getOperatoerer();
 		}
 		@Override
 		public void onClick(ClickEvent event) {
-			main.clearMain();
-			AdminBrugere adminBrugere = new AdminBrugere();
-			main.attach(adminBrugere);
+
+			for (OperatoerDTO opr : oprList) {
+				if(opr.loggedIn())
+					this.opr = opr;
+			}
+			if(opr.isAdmin()) {
+				main.clearMain();
+				AdminBrugere adminBrugere = new AdminBrugere();
+				main.attach(adminBrugere);
+			} else {
+				Window.alert("Du skal være administrator eller superbruger for at komme herind.");
+			}
 		}
 
 	}
-	
+
 	private class LogoutHandler implements ClickHandler {
 
 		private MainView main;
 		private OperatoerDAO oprDAO;
 		private MainMenu menu;
-		
+		private ArrayList<OperatoerDTO> oprList;
+		private OperatoerDTO opr;
+
 		public LogoutHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
 			this.main = main;
 			this.oprDAO = oprDAO;
 			this.menu = menu;
+			oprList = oprDAO.getOperatoerer();
 		}
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			for (OperatoerDTO opr : oprList) {
+				if(opr.loggedIn())
+					this.opr = opr;
+			}
+			opr.logIn(false);
 			main.clearMain();
 			Login login;
 			try {
@@ -157,9 +183,9 @@ public class MainMenu extends Composite {
 				Window.alert(e.getMessage());
 			}
 		}
-		
+
 	}
-	
+
 }
 
 

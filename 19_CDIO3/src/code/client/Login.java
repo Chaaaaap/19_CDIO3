@@ -78,7 +78,7 @@ public class Login extends Composite {
 			}
 			if(passwordEntered.equals(passwordReal)) {
 				if(oprDTO.isActive()) {
-					oprDTO.logIn();
+					oprDTO.logIn(true);
 					menu.setButtonsVisible();
 					this.main.clearMain();
 				} else {

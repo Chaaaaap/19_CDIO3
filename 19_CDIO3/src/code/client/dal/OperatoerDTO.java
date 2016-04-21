@@ -11,14 +11,16 @@ public class OperatoerDTO {
 	private String password;
 	private boolean active;
 	private boolean loggedIn;
+	private boolean admin;
 
-	public OperatoerDTO(int oprID, String oprNavn, String ini, String cpr, String password) {
+	public OperatoerDTO(int oprID, String oprNavn, String ini, String cpr, String password, boolean admin) {
 		this.oprID = oprID;
 		this.oprNavn = oprNavn;
 		this.ini = ini;
 		this.cpr = cpr;
 		this.password = password;
 		active = true;
+		this.admin = admin;
 	}
 
 	public boolean isActive() {
@@ -106,8 +108,12 @@ public class OperatoerDTO {
 		return loggedIn;
 	}
 
-	public void logIn() {
-		this.loggedIn = true;
+	public void logIn(boolean login) {
+		this.loggedIn = login;
+	}
+
+	public boolean isAdmin() {
+		return admin;
 	}
 
 

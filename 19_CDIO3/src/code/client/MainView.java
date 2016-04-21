@@ -39,12 +39,12 @@ public class MainView extends Composite {
 		this.contentPanel.clear();
 	}
 	
-	public void openAfvejning() {
-		
-		contentPanel.clear();
-		Afvej afvej = new Afvej();
-		contentPanel.add(afvej);
-	}
+//	public void openAfvejning() {
+//		
+//		contentPanel.clear();
+//		Afvej afvej = new Afvej();
+//		contentPanel.add(afvej);
+//	}
 
 	public void attach(Widget widget) {
 		contentPanel.add(widget);
