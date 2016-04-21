@@ -1,5 +1,7 @@
 package code.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -9,16 +11,22 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import code.client.dal.OperatoerDAO;
+import code.client.dal.OperatoerDTO;
+
 public class SkiftPassword extends Composite {
 
 	private VerticalPanel vPanel = new VerticalPanel();
-	PasswordTextBox pTxt1;
-	PasswordTextBox pTxt2;
-	PasswordTextBox pTxt3;
+	private PasswordTextBox pTxt1;
+	private PasswordTextBox pTxt2;
+	private PasswordTextBox pTxt3;
+	private OperatoerDAO oprDAO;
 	
 	
-	public SkiftPassword() {
+	public SkiftPassword(OperatoerDAO oprDAO) {
 		initWidget(vPanel);
+		
+		this.oprDAO = oprDAO;
 		
 		Label lbl1 = new Label("Indtast dit gamle password");
 		pTxt1 = new PasswordTextBox();
@@ -36,11 +44,20 @@ public class SkiftPassword extends Composite {
 		vPanel.add(pTxt3);
 		
 		Button skiftPassword = new Button("OK!");
-		skiftPassword.addClickHandler(new SkiftPasswordHandler());
+		skiftPassword.addClickHandler(new SkiftPasswordHandler(this.oprDAO));
 		vPanel.add(skiftPassword);
 	}
 	
 	private class SkiftPasswordHandler implements ClickHandler {
+		
+		private OperatoerDTO opr;
+		private ArrayList<OperatoerDTO> oprList;
+		private OperatoerDAO oprDAO;
+		
+		public SkiftPasswordHandler(OperatoerDAO oprDAO) {
+			this.oprDAO = oprDAO;
+			oprList = this.oprDAO.getOperatoerer();
+		}
 
 		@Override
 		public void onClick(ClickEvent event) {
@@ -48,8 +65,14 @@ public class SkiftPassword extends Composite {
 			String newPassword1 = pTxt2.getText();
 			String newPassword2 = pTxt3.getText();
 			
-			if(newPassword1.equals(newPassword2) && oldPassword.equals("")) {
-				
+			for (OperatoerDTO opr : oprList) {
+				if(opr.loggedIn())
+					this.opr = opr;
+			}
+			
+			if(newPassword1.equals(newPassword2) && oldPassword.equals(opr.getPassword())) {
+				opr.setPassword(newPassword2);
+				Window.alert("Dit nye password er nu gemt.");
 			} else {
 				Window.alert("Du har skrevet forkert i et af felterne.");
 			}

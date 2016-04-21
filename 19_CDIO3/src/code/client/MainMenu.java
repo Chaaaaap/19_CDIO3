@@ -55,7 +55,7 @@ public class MainMenu extends Composite {
 
 		afvej.addClickHandler(new AfvejHandler(this.main));
 		afvej.setVisible(false);
-		skiftPassword.addClickHandler(new PasswordHandler(this.main));
+		skiftPassword.addClickHandler(new PasswordHandler(this.main, oprDAO));
 		skiftPassword.setVisible(false);
 		administrerBrugere.addClickHandler(new AdministrerBrugere(this.main));
 		administrerBrugere.setVisible(false);
@@ -101,14 +101,16 @@ public class MainMenu extends Composite {
 	private class PasswordHandler implements ClickHandler {
 
 		private MainView main;
+		private OperatoerDAO oprDAO;
 
-		public PasswordHandler(MainView main) {
+		public PasswordHandler(MainView main, OperatoerDAO oprDAO) {
 			this.main = main;
+			this.oprDAO = oprDAO;
 		}
 		@Override
 		public void onClick(ClickEvent event) {
 			main.clearMain();
-			SkiftPassword skiftPass = new SkiftPassword();
+			SkiftPassword skiftPass = new SkiftPassword(oprDAO);
 			main.attach(skiftPass);
 		}
 
