@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import code.client.dal.IOperatoerDAO.DALException;
+import code.client.gui.MainView;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

@@ -1,4 +1,4 @@
-package code.client;
+package code.client.gui;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;

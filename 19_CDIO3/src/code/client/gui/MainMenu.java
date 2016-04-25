@@ -1,4 +1,4 @@
-package code.client;
+package code.client.gui;
 
 import java.util.ArrayList;
 
@@ -131,7 +131,7 @@ public class MainMenu extends Composite {
 		public AdministrerBrugere(MainView main, OperatoerDAO oprDAO) {
 			this.main = main;
 			this.oprDAO = oprDAO;
-			oprList = oprDAO.getOperatoerer();
+			oprList = this.oprDAO.getOperatoerer();
 		}
 		@Override
 		public void onClick(ClickEvent event) {
