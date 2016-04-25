@@ -1,5 +1,5 @@
 package code.client.service;
 
-public class ServiceClient {
+public class ServiceClient implements IServiceClient {
 
 }

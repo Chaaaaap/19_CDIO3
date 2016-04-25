@@ -1,5 +1,10 @@
 package code.client.service;
 
-public interface IService {
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+@RemoteServiceRelativePath("cdio3")
+public interface IService extends RemoteService {
+
+	
 }
