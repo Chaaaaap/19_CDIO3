@@ -1,6 +1,5 @@
 package code.client.dal;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -19,7 +18,6 @@ public interface IOperatoerDAO {
 	}
 	
 	public ArrayList<OperatoerDTO> getOperatoerer() throws DALException;
-	public OperatoerDTO getOperatoer(int oprID) throws DALException, SQLException;
 	public void addPerson(OperatoerDTO user) throws DALException;
 	public void deactivatePerson(int oprID) throws DALException;
 	public void editPerson() throws DALException;
