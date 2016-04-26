@@ -31,7 +31,7 @@ public class Login extends Composite {
 	private MainView main;
 	private MainMenu menu;
 
-	public Login(MainView main, OperatoerDAO oprDAO, MainMenu menu) throws DALException {
+	public Login(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
 		initWidget(vPanel);
 		this.main = main;
 		this.menu = menu;
@@ -74,13 +74,8 @@ public class Login extends Composite {
 			String userName = txt.getText();
 			String passwordEntered = pTxt.getText();
 			String passwordReal = "";
-			ArrayList<OperatoerDTO> oprList = null;
-			try {
-				oprList = oprDAO.getOperatoerer();
-			} catch (DALException | SQLException e) {
-				Window.alert(e.getMessage());
-			}
-
+			ArrayList<OperatoerDTO> oprList;
+			oprList = oprDAO.getOperatoerer();
 
 			for (OperatoerDTO operatoerDTO : oprList) {
 				if(operatoerDTO.getOprID() == Integer.parseInt(userName)) {

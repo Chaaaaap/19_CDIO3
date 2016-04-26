@@ -17,11 +17,8 @@ public class _9_CDIO3 implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		try {
-			client = new ServiceClient();
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+		
+		client = new ServiceClient();
 		
 		client.getMainView().getElement().setAttribute("align", "center");
 		

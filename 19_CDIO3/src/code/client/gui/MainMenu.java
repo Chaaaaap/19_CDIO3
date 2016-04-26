@@ -54,7 +54,6 @@ public class MainMenu extends Composite {
 		initWidget(hPanel);
 		this.main = main;
 
-		try {
 		afvej = new Button("Afvej");
 		skiftPassword = new Button("Skift password");
 		administrerBrugere = new Button("Administrer brugere");
@@ -73,9 +72,6 @@ public class MainMenu extends Composite {
 		hPanel.add(skiftPassword);
 		hPanel.add(administrerBrugere);
 		hPanel.add(logout);
-		} catch(DALException | SQLException e) {
-			Window.alert(e.getMessage());
-		}
 	}
 	public void setButtonsVisible() {
 		afvej.setVisible(true);
@@ -132,7 +128,7 @@ public class MainMenu extends Composite {
 		private OperatoerDTO opr;
 		private ArrayList<OperatoerDTO> oprList;
 
-		public AdministrerBrugere(MainView main, OperatoerDAO oprDAO) throws DALException, SQLException {
+		public AdministrerBrugere(MainView main, OperatoerDAO oprDAO){
 			this.main = main;
 			this.oprDAO = oprDAO;
 			oprList = this.oprDAO.getOperatoerer();
@@ -163,7 +159,7 @@ public class MainMenu extends Composite {
 		private ArrayList<OperatoerDTO> oprList;
 		private OperatoerDTO opr;
 
-		public LogoutHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) throws DALException, SQLException {
+		public LogoutHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
 			this.main = main;
 			this.oprDAO = oprDAO;
 			this.menu = menu;
@@ -171,7 +167,7 @@ public class MainMenu extends Composite {
 		}
 		@Override
 		public void onClick(ClickEvent event) {
-			
+
 			for (OperatoerDTO opr : oprList) {
 				if(opr.loggedIn())
 					this.opr = opr;
@@ -179,13 +175,9 @@ public class MainMenu extends Composite {
 			opr.logIn(false);
 			main.clearMain();
 			Login login;
-			try {
-				login = new Login(main, oprDAO, menu);
-				main.attach(login);
-				menu.setButtonsInvisible();
-			} catch (DALException e) {
-				Window.alert(e.getMessage());
-			}
+			login = new Login(main, oprDAO, menu);
+			main.attach(login);
+			menu.setButtonsInvisible();
 		}
 
 	}
