@@ -23,6 +23,8 @@ public class _9_CDIO3 implements EntryPoint {
 			e.printStackTrace();
 		}
 		
+		client.getMainView().getElement().setAttribute("align", "center");
+		
 		RootPanel.get().add(client.getMainView());
 	}
 }

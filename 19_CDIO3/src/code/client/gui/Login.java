@@ -33,6 +33,9 @@ public class Login extends Composite {
 		this.main = main;
 		this.menu = menu;
 
+		vPanel.setBorderWidth(1);
+		
+		
 		txt = new TextBox();
 		txt.setWidth("150px");
 		hPanel.add(txt);
