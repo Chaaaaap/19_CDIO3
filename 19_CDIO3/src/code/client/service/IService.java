@@ -7,6 +7,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface IService extends RemoteService {
 	
 	public void createUser();
-
+	public void editUser();
+	public void deactivateUser();
+	public void activateUser();
 	
 }
