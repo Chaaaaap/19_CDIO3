@@ -67,7 +67,12 @@ public class Login extends Composite {
 			String userName = txt.getText();
 			String passwordEntered = pTxt.getText();
 			String passwordReal = "";
-			ArrayList<OperatoerDTO> oprList = oprDAO.getOperatoerer();
+			ArrayList<OperatoerDTO> oprList = null;
+			try {
+				oprList = oprDAO.getOperatoerer();
+			} catch (DALException e) {
+				Window.alert(e.getMessage());
+			}
 
 
 			for (OperatoerDTO operatoerDTO : oprList) {
