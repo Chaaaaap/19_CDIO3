@@ -43,4 +43,15 @@ public class OperatoerDAO implements IOperatoerDAO {
 		return oprList;
 	}
 
+	@Override
+	public OperatoerDTO getOperatoer(int oprID) {
+		OperatoerDTO opr = null;
+		for (OperatoerDTO operatoerDTO : oprList) {
+			if(operatoerDTO.getOprID() == oprID) {
+				opr = operatoerDTO;
+			}
+		}
+		return opr;
+	}
+
 }

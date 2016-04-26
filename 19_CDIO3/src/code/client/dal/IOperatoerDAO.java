@@ -18,6 +18,7 @@ public interface IOperatoerDAO {
 	}
 	
 	public ArrayList<OperatoerDTO> getOperatoerer();
+	public OperatoerDTO getOperatoer(int oprID);
 	public void addPerson(OperatoerDTO user);
 	public void deactivatePerson(int oprID);
 	public void editPerson();
