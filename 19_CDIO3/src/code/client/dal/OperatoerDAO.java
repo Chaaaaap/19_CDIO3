@@ -4,15 +4,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import connector01917.Connector;
-import daointerfaces01917.DALException;
-import dto01917.OperatoerDTO;
+import code.connector.Connector;
+
+
 
 public class OperatoerDAO implements IOperatoerDAO {
 	
 	private ArrayList<OperatoerDTO> oprList;
+	Connector con;
 	
 	public OperatoerDAO() {
+		con = new Connector();
 		oprList = new ArrayList<OperatoerDTO>();
 		oprList.add(new OperatoerDTO(10, "Martin", "MA", "1901231685", "Test1234", true));
 		oprList.add(new OperatoerDTO(11, "Frank", "FR", "1907922682", "Test1234", false));
@@ -50,11 +52,11 @@ public class OperatoerDAO implements IOperatoerDAO {
 	}
 
 	@Override
-	public OperatoerDTO getOperatoer(int oprId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer WHERE opr_id = " + oprId);
+	public OperatoerDTO getOperatoer(int oprId) throws DALException, SQLException {
+		ResultSet rs = con.doQuery("SELECT * FROM operatoer WHERE opr_id = " + oprId);
 	    try {
 	    	if (!rs.first()) throw new DALException("Operatoeren " + oprId + " findes ikke");
-	    	return new OperatoerDTO (rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"));
+	    	return new OperatoerDTO (rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), true);
 	    }
 	    catch (SQLException e) {throw new DALException(e.getMessage()); }
 		
