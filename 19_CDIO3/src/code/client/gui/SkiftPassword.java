@@ -29,6 +29,8 @@ public class SkiftPassword extends Composite {
 		
 		this.oprDAO = oprDAO;
 		
+		try {
+		
 		Label lbl1 = new Label("Indtast dit gamle password");
 		pTxt1 = new PasswordTextBox();
 		vPanel.add(lbl1);
@@ -47,6 +49,9 @@ public class SkiftPassword extends Composite {
 		Button skiftPassword = new Button("OK!");
 		skiftPassword.addClickHandler(new SkiftPasswordHandler(this.oprDAO));
 		vPanel.add(skiftPassword);
+		} catch(DALException e) {
+			Window.alert(e.getMessage());
+		}
 	}
 	
 	private class SkiftPasswordHandler implements ClickHandler {
@@ -55,7 +60,7 @@ public class SkiftPassword extends Composite {
 		private ArrayList<OperatoerDTO> oprList;
 		private OperatoerDAO oprDAO;
 		
-		public SkiftPasswordHandler(OperatoerDAO oprDAO) {
+		public SkiftPasswordHandler(OperatoerDAO oprDAO) throws DALException {
 			this.oprDAO = oprDAO;
 			oprList = this.oprDAO.getOperatoerer();
 		}
