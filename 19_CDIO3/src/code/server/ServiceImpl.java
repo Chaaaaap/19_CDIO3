@@ -12,7 +12,6 @@ public class ServiceImpl extends RemoteServiceServlet implements IService {
 
 	@Override
 	public void createUser() {
-		// TODO Auto-generated method stub
 		
 	}
 
