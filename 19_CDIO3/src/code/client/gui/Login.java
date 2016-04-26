@@ -22,6 +22,7 @@ import code.client.dal.OperatoerDTO;
 public class Login extends Composite {
 
 	private VerticalPanel vPanel = new VerticalPanel();
+	private VerticalPanel vPanel2 = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	private HorizontalPanel hPanel2 = new HorizontalPanel();
 	private PasswordTextBox pTxt;
@@ -34,20 +35,22 @@ public class Login extends Composite {
 		this.main = main;
 		this.menu = menu;
 
-		vPanel.setBorderWidth(1);
+		
+		Label lbl1 = new Label("Indtast operatør ID");
+		vPanel.add(lbl1);
+		
 		
 		txt = new TextBox();
 		txt.setWidth("150px");
-		hPanel.add(txt);
-		Label lbl1 = new Label("Indtast operatør ID");
-		hPanel.add(lbl1);
+		vPanel.add(txt);
+
+		Label lbl2 = new Label("Indtast adgangskode");
+		vPanel.add(lbl2);
+		
 		pTxt = new PasswordTextBox();
 		pTxt.setWidth("150px");
-		hPanel2.add(pTxt);
-		Label lbl2 = new Label("Indtast adgangskode");
-		hPanel2.add(lbl2);
-		vPanel.add(hPanel);
-		vPanel.add(hPanel2);
+		vPanel.add(pTxt);
+		
 		Button btn1 = new Button("Login");
 		vPanel.add(btn1);
 		btn1.setWidth("160px");
