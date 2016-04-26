@@ -1,6 +1,5 @@
 package code.client.dal;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
