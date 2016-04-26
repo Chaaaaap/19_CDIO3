@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -35,7 +36,6 @@ public class Login extends Composite {
 
 		vPanel.setBorderWidth(1);
 		
-		
 		txt = new TextBox();
 		txt.setWidth("150px");
 		hPanel.add(txt);
@@ -50,7 +50,7 @@ public class Login extends Composite {
 		vPanel.add(hPanel2);
 		Button btn1 = new Button("Login");
 		vPanel.add(btn1);
-
+		btn1.setWidth("160px");
 		btn1.addClickHandler(new ClickHandlerImplementation(this.main, oprDAO, menu));
 	}
 
