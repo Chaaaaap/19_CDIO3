@@ -27,12 +27,13 @@ public class Login extends Composite {
 	private TextBox txt;
 	private MainView main;
 	private MainMenu menu;
+	private OperatoerDAO oprDAO;
 
 	public Login(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
 		initWidget(vPanel);
 		this.main = main;
 		this.menu = menu;
-
+		this.oprDAO = oprDAO;
 		
 		Label lbl1 = new Label("Indtast operatør ID");
 		vPanel.add(lbl1);
@@ -50,34 +51,39 @@ public class Login extends Composite {
 		vPanel.add(pTxt);
 		
 		Button btn1 = new Button("Login");
-		vPanel.add(btn1);
 		btn1.setWidth("160px");
-		btn1.addClickHandler(new ClickHandlerImplementation(this.main, oprDAO, menu));
+		btn1.addClickHandler(new LoginClickHandler(this.main, this.oprDAO, menu));
+		vPanel.add(btn1);
 	}
 
-	private final class ClickHandlerImplementation implements ClickHandler {
+	private final class LoginClickHandler implements ClickHandler {
 
 		private MainView main;
 		private OperatoerDAO oprDAO;
 		private OperatoerDTO oprDTO;
 
-		public ClickHandlerImplementation(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
+		public LoginClickHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
 			this.main = main;
 			this.oprDAO = oprDAO;
 		}
+		
 
 		@Override
 		public void onClick(ClickEvent event) {
 			String userName = txt.getText();
+			
 			String passwordEntered = pTxt.getText();
+			
 			String passwordReal = "";
-			ArrayList<OperatoerDTO> oprList;
-			oprList = oprDAO.getOperatoerer();
+			ArrayList<OperatoerDTO> oprList = oprDAO.getOperatoerer();
+			
+			
 
 			for (OperatoerDTO operatoerDTO : oprList) {
 				if(operatoerDTO.getOprID() == Integer.parseInt(userName)) {
 					oprDTO = operatoerDTO;
 					passwordReal = operatoerDTO.getPassword();
+					
 				}
 			}
 			if(passwordEntered.equals(passwordReal)) {

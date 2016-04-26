@@ -3,6 +3,7 @@ package code.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import code.client.gui.Test;
 import code.client.service.ServiceClient;
 
 /**
@@ -22,5 +23,9 @@ public class _9_CDIO3 implements EntryPoint {
 		client.getMainView().getElement().setAttribute("align", "center");
 		
 		RootPanel.get().add(client.getMainView());
+		
+//		Test test = new Test();
+//		
+//		RootPanel.get().add(test);
 	}
 }
