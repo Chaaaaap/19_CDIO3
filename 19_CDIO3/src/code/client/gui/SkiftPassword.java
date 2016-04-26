@@ -1,5 +1,6 @@
 package code.client.gui;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -49,7 +50,7 @@ public class SkiftPassword extends Composite {
 		Button skiftPassword = new Button("OK!");
 		skiftPassword.addClickHandler(new SkiftPasswordHandler(this.oprDAO));
 		vPanel.add(skiftPassword);
-		} catch(DALException e) {
+		} catch(DALException | SQLException e) {
 			Window.alert(e.getMessage());
 		}
 	}
@@ -60,7 +61,7 @@ public class SkiftPassword extends Composite {
 		private ArrayList<OperatoerDTO> oprList;
 		private OperatoerDAO oprDAO;
 		
-		public SkiftPasswordHandler(OperatoerDAO oprDAO) throws DALException {
+		public SkiftPasswordHandler(OperatoerDAO oprDAO) throws DALException, SQLException {
 			this.oprDAO = oprDAO;
 			oprList = this.oprDAO.getOperatoerer();
 		}

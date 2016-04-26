@@ -1,5 +1,6 @@
 package code.client.gui;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -72,7 +73,7 @@ public class MainMenu extends Composite {
 		hPanel.add(skiftPassword);
 		hPanel.add(administrerBrugere);
 		hPanel.add(logout);
-		} catch(DALException e) {
+		} catch(DALException | SQLException e) {
 			Window.alert(e.getMessage());
 		}
 	}
@@ -131,7 +132,7 @@ public class MainMenu extends Composite {
 		private OperatoerDTO opr;
 		private ArrayList<OperatoerDTO> oprList;
 
-		public AdministrerBrugere(MainView main, OperatoerDAO oprDAO) throws DALException {
+		public AdministrerBrugere(MainView main, OperatoerDAO oprDAO) throws DALException, SQLException {
 			this.main = main;
 			this.oprDAO = oprDAO;
 			oprList = this.oprDAO.getOperatoerer();
@@ -162,7 +163,7 @@ public class MainMenu extends Composite {
 		private ArrayList<OperatoerDTO> oprList;
 		private OperatoerDTO opr;
 
-		public LogoutHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) throws DALException {
+		public LogoutHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) throws DALException, SQLException {
 			this.main = main;
 			this.oprDAO = oprDAO;
 			this.menu = menu;

@@ -1,5 +1,6 @@
 package code.client.gui;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -76,7 +77,7 @@ public class Login extends Composite {
 			ArrayList<OperatoerDTO> oprList = null;
 			try {
 				oprList = oprDAO.getOperatoerer();
-			} catch (DALException e) {
+			} catch (DALException | SQLException e) {
 				Window.alert(e.getMessage());
 			}
 

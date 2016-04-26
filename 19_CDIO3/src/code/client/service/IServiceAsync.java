@@ -1,6 +1,7 @@
 package code.client.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -26,11 +27,12 @@ public interface IServiceAsync {
 		
 	}
 	
-	public void createUser(AsyncCallback callback);
-	public void editUser(AsyncCallback callback);
-	public void deactivateUser(AsyncCallback callback);
-	public void activateUser(AsyncCallback callback);
+	public void createUser(AsyncCallback callback) throws DALException, SQLException;
+	public void editUser(AsyncCallback callback) throws DALException, SQLException;
+	public void deactivateUser(AsyncCallback callback) throws DALException, SQLException;
+	public void activateUser(AsyncCallback callback) throws DALException, SQLException;
 	public void getOperatoer(int oprID, AsyncCallback callback) throws DALException, SQLException;
+	public void getOperatoerer(AsyncCallback callback) throws DALException, SQLException;
 	
 	
 	
