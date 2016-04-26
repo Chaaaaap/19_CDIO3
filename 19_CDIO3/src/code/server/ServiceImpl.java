@@ -1,6 +1,5 @@
 package code.server;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

@@ -3,7 +3,6 @@ package code.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import code.client.dal.IOperatoerDAO.DALException;
 import code.client.service.ServiceClient;
 
 /**

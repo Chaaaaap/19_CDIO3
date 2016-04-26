@@ -7,7 +7,7 @@ public class ServiceClient implements IServiceClient {
 	MainView mainView;
 	
 	public ServiceClient() {
-			mainView = new MainView();
+		mainView = new MainView();
 	}
 	
 	public MainView getMainView() {

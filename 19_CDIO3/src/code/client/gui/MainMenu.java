@@ -1,6 +1,5 @@
 package code.client.gui;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -10,7 +9,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
-import code.client.dal.IOperatoerDAO.DALException;
 import code.client.dal.OperatoerDAO;
 import code.client.dal.OperatoerDTO;
 

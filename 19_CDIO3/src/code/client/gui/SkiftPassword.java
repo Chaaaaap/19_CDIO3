@@ -1,6 +1,5 @@
 package code.client.gui;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
