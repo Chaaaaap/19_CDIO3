@@ -73,6 +73,9 @@ public class SkiftPassword extends Composite {
 			
 			try {
 				if(opr.setPassword(newPassword1, newPassword2, oldPassword)) {
+					pTxt1.setText(null);
+					pTxt2.setText(null);
+					pTxt3.setText(null);
 					Window.alert("Dit password er nu ændret.");
 				}
 				
