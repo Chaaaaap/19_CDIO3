@@ -136,6 +136,8 @@ public class MainMenu extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 
+			setButtonsInvisible();
+			
 			for (OperatoerDTO opr : oprList) {
 				if(opr.loggedIn())
 					this.opr = opr;

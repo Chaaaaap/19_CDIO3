@@ -41,20 +41,6 @@ public class AdminBrugere extends Composite {
 		
 	}
 	
-//	public void setButtonsVisible() {
-//		opret.setVisible(true);
-//		deaktiver.setVisible(true);
-//		opdater.setVisible(true);
-//		tilbage.setVisible(true);
-//	}
-//
-//	public void setButtonsInvisible() {
-//		opret.setVisible(false);
-//		deaktiver.setVisible(false);
-//		opdater.setVisible(false);
-//		tilbage.setVisible(false);
-//	}
-
 	
 	private class OpretBrugerHandler implements ClickHandler {
 
@@ -90,6 +76,7 @@ public class AdminBrugere extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
 			
 			main.clearMain();
 			menu.setButtonsVisible();
