@@ -11,15 +11,18 @@ import com.google.gwt.user.client.ui.FlexTable;
 public class AdminBrugere extends Composite {
 	
 	
-	
-	FlexTable fTable = new FlexTable();
+	private MainMenu menu;
+	private MainView main;
+	private FlexTable fTable = new FlexTable();
 	private Button opret;
 	private Button opdater;
 	private Button tilbage;
 	private Button deaktiver;
 	
-	public AdminBrugere() {
+	public AdminBrugere(MainView main, MainMenu menu) {
 		initWidget(fTable);
+		this.main = main;
+		this.menu = menu;
 		
 		opret = new Button("Opret ny bruger");
 		deaktiver = new Button("Deaktiver bruger");
@@ -38,19 +41,19 @@ public class AdminBrugere extends Composite {
 		
 	}
 	
-	public void setButtonsVisible() {
-		opret.setVisible(true);
-		deaktiver.setVisible(true);
-		opdater.setVisible(true);
-		tilbage.setVisible(true);
-	}
-
-	public void setButtonsInvisible() {
-		opret.setVisible(false);
-		deaktiver.setVisible(false);
-		opdater.setVisible(false);
-		tilbage.setVisible(false);
-	}
+//	public void setButtonsVisible() {
+//		opret.setVisible(true);
+//		deaktiver.setVisible(true);
+//		opdater.setVisible(true);
+//		tilbage.setVisible(true);
+//	}
+//
+//	public void setButtonsInvisible() {
+//		opret.setVisible(false);
+//		deaktiver.setVisible(false);
+//		opdater.setVisible(false);
+//		tilbage.setVisible(false);
+//	}
 
 	
 	private class OpretBrugerHandler implements ClickHandler {
@@ -88,8 +91,8 @@ public class AdminBrugere extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			setButtonsInvisible();
-			
+			main.clearMain();
+			menu.setButtonsVisible();
 			
 		}
 		

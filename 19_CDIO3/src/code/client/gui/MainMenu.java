@@ -20,6 +20,7 @@ public class MainMenu extends Composite {
 	private Button skiftPassword;
 	private Button administrerBrugere;
 	private Button logout;
+	private MainMenu menu;
 
 	//	public MainMenu(MainView main) {
 	//
@@ -51,6 +52,7 @@ public class MainMenu extends Composite {
 
 		initWidget(hPanel);
 		this.main = main;
+		this.menu = this;
 
 		afvej = new Button("Afvej");
 		skiftPassword = new Button("Skift password");
@@ -140,7 +142,7 @@ public class MainMenu extends Composite {
 			}
 			if(opr.isAdmin()) {
 				main.clearMain();
-				AdminBrugere adminBrugere = new AdminBrugere();
+				AdminBrugere adminBrugere = new AdminBrugere(main, menu);
 				main.attach(adminBrugere);
 			} else {
 				Window.alert("Du skal være administrator eller superbruger for at komme herind.");
