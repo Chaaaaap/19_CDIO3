@@ -136,13 +136,14 @@ public class MainMenu extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 
-			setButtonsInvisible();
+			
 			
 			for (OperatoerDTO opr : oprList) {
 				if(opr.loggedIn())
 					this.opr = opr;
 			}
 			if(opr.isAdmin()) {
+				setButtonsInvisible();
 				main.clearMain();
 				AdminBrugere adminBrugere = new AdminBrugere(main, menu);
 				main.attach(adminBrugere);
