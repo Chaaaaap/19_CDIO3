@@ -10,9 +10,12 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -32,6 +35,7 @@ public class AdminBrugere extends Composite {
 	private MainView main;
 	private FlexTable fTable = new FlexTable();
 	private VerticalPanel vPanel = new VerticalPanel();
+	private HorizontalPanel hPanel = new HorizontalPanel();
 	private Button opret;
 	private Button opdater;
 	private Button tilbage;
@@ -92,8 +96,6 @@ public class AdminBrugere extends Composite {
 			pTxt1.setWidth("120px");
 			Label lbl6 = new Label("Administrator");
 			CheckBox admin = new CheckBox();
-			Label lbl7 = new Label("Ikke administrator");
-			CheckBox notAdmin = new CheckBox();
 			
 			Button btn = new Button("Opret bruger!");
 			btn.setWidth("130px");
@@ -101,50 +103,58 @@ public class AdminBrugere extends Composite {
 					
 				@Override
 				public void onClick(ClickEvent event) {
-					// Implement functionality for create user button
-					
-					
-					
-					
+					// Implement functionality for create user button	
 				}
 			});
 			
 			
 			
-			vPanel.add(lbl); 	vPanel.add(txt);
-			vPanel.add(lbl1);	vPanel.add(txt1);
-			vPanel.add(lbl2);	vPanel.add(txt2);
-			vPanel.add(lbl3);	vPanel.add(txt3);
-			vPanel.add(lbl4);	vPanel.add(pTxt);
-			vPanel.add(lbl5);	vPanel.add(pTxt1);
-			vPanel.add(lbl6);	vPanel.add(admin);
-			vPanel.add(lbl7);	vPanel.add(notAdmin);
+			vPanel.add(lbl); 	
+			vPanel.add(txt);
+			vPanel.add(lbl1);	
+			vPanel.add(txt1);
+			vPanel.add(lbl2);	
+			vPanel.add(txt2);
+			vPanel.add(lbl3);	
+			vPanel.add(txt3);
+			vPanel.add(lbl4);	
+			vPanel.add(pTxt);
+			vPanel.add(lbl5);	
+			vPanel.add(pTxt1);
+			hPanel.add(lbl6);
+			hPanel.add(admin);
 			vPanel.add(btn);
 			
+			
+			
 			fTable.setWidget(1, 0, vPanel);
-	
-		}
+			vPanel.add(hPanel);
+		}	
 		
 	}
 	
 	private class DeaktiverBrugerHandler implements ClickHandler {
 
-		
+//		FlexTable t;
+//		HorizontalPanel hPanel = new HorizontalPanel();
 		
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel.clear();
 			
+			
+//			t = new FlexTable();
+//			
 //			List<OperatoerDTO> personer = oprDAO.getOperatoerer();
 //
 //			for (int i=0; i < personer.size(); i++) {
-//				fTable.setText(i+1, 0, personer.get(i).getOprNavn());
+//				t.setText(i+1, 0, personer.get(i).getOprNavn());
 //			}
 //
 //			
-//			vPanel.add(fTable);
+//			hPanel.add(t);
 
-			fTable.setWidget(1, 1, vPanel);
+//			fTable.setWidget(1, 1, hPanel);
 		}
 		
 	}
@@ -153,6 +163,8 @@ public class AdminBrugere extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			
 			vPanel.clear();
 			
 			
@@ -167,6 +179,8 @@ public class AdminBrugere extends Composite {
 			
 		}
 		
+
+
 	}
 	
 	private class TilbageHandler implements ClickHandler {
@@ -181,6 +195,5 @@ public class AdminBrugere extends Composite {
 		}
 		
 	}
-	
 	
 }
