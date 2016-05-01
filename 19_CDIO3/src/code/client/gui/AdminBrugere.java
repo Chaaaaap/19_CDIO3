@@ -1,22 +1,37 @@
 package code.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+
+import code.client.dal.IOperatoerDAO;
+import code.client.dal.OperatoerDAO;
+import code.client.dal.OperatoerDTO;
 
 
 
 public class AdminBrugere extends Composite {
 	
 	
+	
+	private OperatoerDAO oprDAO;
+	private OperatoerDTO oprDTO;
 	private MainMenu menu;
 	private MainView main;
 	private FlexTable fTable = new FlexTable();
+	private VerticalPanel vPanel = new VerticalPanel();
 	private Button opret;
 	private Button opdater;
 	private Button tilbage;
@@ -55,7 +70,7 @@ public class AdminBrugere extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			
-			
+			vPanel.clear();
 			
 			Label lbl = new Label("Indtast operatør ID");
 			TextBox txt = new TextBox();
@@ -75,35 +90,61 @@ public class AdminBrugere extends Composite {
 			Label lbl5 = new Label("Gentag password");
 			PasswordTextBox pTxt1 = new PasswordTextBox();
 			pTxt1.setWidth("120px");
-			Button btn = new Button("Opret bruger!");	
+			Label lbl6 = new Label("Administrator");
+			CheckBox admin = new CheckBox();
+			Label lbl7 = new Label("Ikke administrator");
+			CheckBox notAdmin = new CheckBox();
+			
+			Button btn = new Button("Opret bruger!");
 			btn.setWidth("130px");
+			btn.addClickHandler(new ClickHandler() {
+					
+				@Override
+				public void onClick(ClickEvent event) {
+					// Implement functionality for create user button
+					
+					
+					
+					
+				}
+			});
 			
 			
-			fTable.setWidget(1, 0, lbl);
-			fTable.setWidget(2, 0, txt);
-			fTable.setWidget(3, 0, lbl1);
-			fTable.setWidget(4, 0, txt1);
-			fTable.setWidget(5, 0, lbl2);
-			fTable.setWidget(6, 0, txt2);
-			fTable.setWidget(7, 0, lbl3);
-			fTable.setWidget(8, 0, txt3);
-			fTable.setWidget(9, 0, lbl4);
-			fTable.setWidget(10, 0, pTxt);
-			fTable.setWidget(11, 0, lbl5);
-			fTable.setWidget(12, 0, pTxt1);
-			fTable.setWidget(14, 0, btn);
 			
+			vPanel.add(lbl); 	vPanel.add(txt);
+			vPanel.add(lbl1);	vPanel.add(txt1);
+			vPanel.add(lbl2);	vPanel.add(txt2);
+			vPanel.add(lbl3);	vPanel.add(txt3);
+			vPanel.add(lbl4);	vPanel.add(pTxt);
+			vPanel.add(lbl5);	vPanel.add(pTxt1);
+			vPanel.add(lbl6);	vPanel.add(admin);
+			vPanel.add(lbl7);	vPanel.add(notAdmin);
+			vPanel.add(btn);
 			
+			fTable.setWidget(1, 0, vPanel);
+	
 		}
 		
 	}
 	
 	private class DeaktiverBrugerHandler implements ClickHandler {
 
+		
+		
 		@Override
 		public void onClick(ClickEvent event) {
-			// TODO Auto-generated method stub
+			vPanel.clear();
 			
+//			List<OperatoerDTO> personer = oprDAO.getOperatoerer();
+//
+//			for (int i=0; i < personer.size(); i++) {
+//				fTable.setText(i+1, 0, personer.get(i).getOprNavn());
+//			}
+//
+//			
+//			vPanel.add(fTable);
+
+			fTable.setWidget(1, 1, vPanel);
 		}
 		
 	}
@@ -112,7 +153,17 @@ public class AdminBrugere extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			vPanel.clear();
 			
+			
+			Label lbl = new Label("Test");
+			
+			
+			vPanel.add(lbl);
+			
+			
+			
+			fTable.setWidget(1, 2, vPanel);
 			
 		}
 		
