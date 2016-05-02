@@ -228,7 +228,7 @@ public class AdminBrugere extends Composite {
 							@Override
 							public void onClick(ClickEvent event) {
 								// Implement functionality for update user button
-
+								Window.alert("Hej");
 							}
 						});
 
