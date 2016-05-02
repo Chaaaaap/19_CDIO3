@@ -74,10 +74,20 @@ public class AdminBrugere extends Composite {
 
 
 	private class OpretBrugerHandler implements ClickHandler {
+		
+		private OperatoerDTO opr;
+		private ArrayList<OperatoerDTO> oprList;
+		private OperatoerDAO oprDAO;
 
-
+		public OpretBrugerHandler(OperatoerDAO oprDAO) {
+			this.oprDAO = oprDAO;
+			oprList = this.oprDAO.getOperatoerer();
+		}
+		
 		@Override
 		public void onClick(ClickEvent event) {
+
+			
 			ft.removeAllRows();
 			vPanel.clear();
 			hPanel.clear();
@@ -107,7 +117,15 @@ public class AdminBrugere extends Composite {
 				@Override
 				public void onClick(ClickEvent event) {
 					// Implement functionality for create user button
-
+					
+					int indtastetOprID = Integer.parseInt(txt.getText());
+					
+					if (oprDAO.getOperatoer() == indtastetOprID) {
+						Window.alert("Dette ID nummer er allerede i brug!");
+					}else 
+						oprDTO.setOprID(indtastetOprID);
+					
+					
 				}
 			});
 
