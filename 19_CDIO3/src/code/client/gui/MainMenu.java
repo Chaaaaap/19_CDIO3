@@ -145,7 +145,7 @@ public class MainMenu extends Composite {
 			if(opr.isAdmin()) {
 				setButtonsInvisible();
 				main.clearMain();
-				AdminBrugere adminBrugere = new AdminBrugere(main, menu);
+				AdminBrugere adminBrugere = new AdminBrugere(main, menu, oprDAO);
 				main.attach(adminBrugere);
 			} else {
 				Window.alert("Du skal være administrator eller superbruger for at komme herind.");
