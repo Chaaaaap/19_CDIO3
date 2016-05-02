@@ -60,7 +60,7 @@ public class AdminBrugere extends Composite {
 		tilbage = new Button("Tilbage til hovedmenu");
 		tilbage.setWidth("150px");
 
-		opret.addClickHandler(new OpretBrugerHandler());
+		opret.addClickHandler(new OpretBrugerHandler(oprDAO));
 		deaktiver.addClickHandler(new DeaktiverBrugerHandler(oprDAO));
 		opdater.addClickHandler(new OpdaterBrugerHandler(oprDAO));
 		tilbage.addClickHandler(new TilbageHandler());
@@ -118,12 +118,12 @@ public class AdminBrugere extends Composite {
 				public void onClick(ClickEvent event) {
 					// Implement functionality for create user button
 					
-					int indtastetOprID = Integer.parseInt(txt.getText());
-					
-					if (oprDAO.getOperatoer() == indtastetOprID) {
-						Window.alert("Dette ID nummer er allerede i brug!");
-					}else 
-						oprDTO.setOprID(indtastetOprID);
+//					int indtastetOprID = Integer.parseInt(txt.getText());
+//					
+//					if (oprDAO.getOperatoer() == indtastetOprID) {
+//						Window.alert("Dette ID nummer er allerede i brug!");
+//					}else 
+//						oprDTO.setOprID(indtastetOprID);
 					
 					
 				}
