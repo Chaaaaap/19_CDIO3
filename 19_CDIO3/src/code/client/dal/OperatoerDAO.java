@@ -8,9 +8,9 @@ public class OperatoerDAO implements IOperatoerDAO {
 	
 	public OperatoerDAO() {
 		oprList = new ArrayList<OperatoerDTO>();
-		oprList.add(new OperatoerDTO(10, "Martin", "MA", "1901231685", "Test1234", true));
-		oprList.add(new OperatoerDTO(11, "Frank", "FR", "1907922682", "Test1234", false));
-		oprList.add(new OperatoerDTO(12, "Silas", "SL", "1907921245", "Test1234", false));
+		oprList.add(new OperatoerDTO(1, "Martin", "MA", "1901231685", "Test1234", true));
+		oprList.add(new OperatoerDTO(2, "Frank", "FR", "1907922682", "Test1234", false));
+		oprList.add(new OperatoerDTO(3, "Silas", "SL", "1907921245", "Test1234", false));
 	}
 	
 	public void addPerson(OperatoerDTO user) {
