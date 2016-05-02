@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -34,25 +37,28 @@ public class Login extends Composite {
 		this.main = main;
 		this.menu = menu;
 		this.oprDAO = oprDAO;
-		
+
 		Label lbl1 = new Label("Indtast operatør ID");
 		vPanel.add(lbl1);
-		
-		
+
+
 		txt = new TextBox();
 		txt.setWidth("150px");
 		vPanel.add(txt);
 
 		Label lbl2 = new Label("Indtast adgangskode");
 		vPanel.add(lbl2);
-		
+
 		pTxt = new PasswordTextBox();
+		pTxt.addKeyDownHandler(new EnterPressedHandler(main, oprDAO, menu));
 		pTxt.setWidth("150px");
 		vPanel.add(pTxt);
-		
+
 		Button btn1 = new Button("Login");
 		btn1.setWidth("160px");
 		btn1.addClickHandler(new LoginClickHandler(this.main, this.oprDAO, menu));
+
+
 		vPanel.add(btn1);
 	}
 
@@ -66,24 +72,24 @@ public class Login extends Composite {
 			this.main = main;
 			this.oprDAO = oprDAO;
 		}
-		
+
 
 		@Override
 		public void onClick(ClickEvent event) {
 			String userName = txt.getText();
-			
+
 			String passwordEntered = pTxt.getText();
-			
+
 			String passwordReal = "";
 			ArrayList<OperatoerDTO> oprList = oprDAO.getOperatoerer();
-			
-			
+
+
 
 			for (OperatoerDTO operatoerDTO : oprList) {
 				if(operatoerDTO.getOprID() == Integer.parseInt(userName)) {
 					oprDTO = operatoerDTO;
 					passwordReal = operatoerDTO.getPassword();
-					
+
 				}
 			}
 			if(passwordEntered.equals(passwordReal)) {
@@ -100,4 +106,52 @@ public class Login extends Composite {
 			}
 		}
 	}
+
+
+	private class EnterPressedHandler implements KeyDownHandler {
+		private MainView main;
+		private OperatoerDAO oprDAO;
+		private OperatoerDTO oprDTO;
+
+		public EnterPressedHandler(MainView main, OperatoerDAO oprDAO, MainMenu menu) {
+			this.main = main;
+			this.oprDAO = oprDAO;
+		}
+		@Override
+		public void onKeyDown(KeyDownEvent event) {
+			if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+				
+				String userName = txt.getText();
+
+				String passwordEntered = pTxt.getText();
+
+				String passwordReal = "";
+				ArrayList<OperatoerDTO> oprList = oprDAO.getOperatoerer();
+
+
+
+				for (OperatoerDTO operatoerDTO : oprList) {
+					if(operatoerDTO.getOprID() == Integer.parseInt(userName)) {
+						oprDTO = operatoerDTO;
+						passwordReal = operatoerDTO.getPassword();
+
+					}
+				}
+				if(passwordEntered.equals(passwordReal)) {
+					if(oprDTO.isActive()) {
+						oprDTO.logIn(true);
+						menu.setButtonsVisible();
+						this.main.clearMain();
+					} else {
+						Window.alert("Din bruger er deaktiveret!");
+					}
+
+				} else {
+					Window.alert("Operatør ID og adgangskode passer ikke sammen!");
+				}
+			}
+		}
+
+	}
+
 }
