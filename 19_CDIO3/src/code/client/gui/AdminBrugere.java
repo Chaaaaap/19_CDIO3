@@ -3,6 +3,8 @@ package code.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jetty.server.Authentication.User;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -26,9 +28,9 @@ import code.client.dal.OperatoerDTO;
 
 
 public class AdminBrugere extends Composite {
-	
-	
-	
+
+
+
 	private OperatoerDAO oprDAO;
 	private OperatoerDTO oprDTO;
 	private MainMenu menu;
@@ -40,12 +42,12 @@ public class AdminBrugere extends Composite {
 	private Button opdater;
 	private Button tilbage;
 	private Button deaktiver;
-	
+
 	public AdminBrugere(MainView main, MainMenu menu) {
 		initWidget(fTable);
 		this.main = main;
 		this.menu = menu;
-		
+
 		opret = new Button("Opret ny bruger");
 		opret.setWidth("150px");
 		deaktiver = new Button("Deaktiver bruger");
@@ -59,22 +61,23 @@ public class AdminBrugere extends Composite {
 		deaktiver.addClickHandler(new DeaktiverBrugerHandler());
 		opdater.addClickHandler(new OpdaterBrugerHandler());
 		tilbage.addClickHandler(new TilbageHandler());
-		
+
 		fTable.setWidget(0, 0, opret);
 		fTable.setWidget(0, 1, deaktiver);
 		fTable.setWidget(0, 2, opdater);
 		fTable.setWidget(0, 3, tilbage);
-		
+
 	}
-	
-	
+
+
 	private class OpretBrugerHandler implements ClickHandler {
 
-		
+
 		@Override
 		public void onClick(ClickEvent event) {
-			
+
 			vPanel.clear();
+			hPanel.clear();
 			
 			Label lbl = new Label("Indtast operatør ID");
 			TextBox txt = new TextBox();
@@ -95,20 +98,22 @@ public class AdminBrugere extends Composite {
 			PasswordTextBox pTxt1 = new PasswordTextBox();
 			pTxt1.setWidth("120px");
 			Label lbl6 = new Label("Administrator");
+			lbl6.setWidth("113px");
 			CheckBox admin = new CheckBox();
-			
+
 			Button btn = new Button("Opret bruger!");
 			btn.setWidth("130px");
 			btn.addClickHandler(new ClickHandler() {
-					
+
 				@Override
 				public void onClick(ClickEvent event) {
-					// Implement functionality for create user button	
+					// Implement functionality for create user button
+
 				}
 			});
-			
-			
-			
+
+
+
 			vPanel.add(lbl); 	
 			vPanel.add(txt);
 			vPanel.add(lbl1);	
@@ -121,79 +126,80 @@ public class AdminBrugere extends Composite {
 			vPanel.add(pTxt);
 			vPanel.add(lbl5);	
 			vPanel.add(pTxt1);
+			vPanel.add(hPanel);
 			hPanel.add(lbl6);
 			hPanel.add(admin);
 			vPanel.add(btn);
-			
-			
-			
+
 			fTable.setWidget(1, 0, vPanel);
-			vPanel.add(hPanel);
+
+			
+
+
 		}	
-		
+
 	}
-	
+
 	private class DeaktiverBrugerHandler implements ClickHandler {
 
-//		FlexTable t;
-//		HorizontalPanel hPanel = new HorizontalPanel();
-		
+		HorizontalPanel hPanel = new HorizontalPanel();
+		FlexTable t;
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel.clear();
-			
-			
-//			t = new FlexTable();
-//			
-//			List<OperatoerDTO> personer = oprDAO.getOperatoerer();
-//
-//			for (int i=0; i < personer.size(); i++) {
-//				t.setText(i+1, 0, personer.get(i).getOprNavn());
-//			}
-//
-//			
-//			hPanel.add(t);
+			hPanel.clear();
 
-//			fTable.setWidget(1, 1, hPanel);
+
+			t = new FlexTable();
+
+			List<OperatoerDTO> personer = oprDAO.getOperatoerer();
+
+			for (int i=0; i < personer.size(); i++) {
+				t.setText(i+1, 0, personer.get(i).getOprNavn());
+			}
+
+
+			hPanel.add(t);
+
+			fTable.setWidget(1, 1, hPanel);
 		}
-		
+
 	}
-	
+
 	private class OpdaterBrugerHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-			
+
+
 			vPanel.clear();
-			
-			
+
+
 			Label lbl = new Label("Test");
-			
-			
+
+
 			vPanel.add(lbl);
-			
-			
-			
+
+
+
 			fTable.setWidget(1, 2, vPanel);
-			
+
 		}
-		
+
 
 
 	}
-	
+
 	private class TilbageHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-			
+
+
 			main.clearMain();
 			menu.setButtonsVisible();
-			
+
 		}
-		
+
 	}
-	
 }
