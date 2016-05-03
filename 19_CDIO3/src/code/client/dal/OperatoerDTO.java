@@ -10,6 +10,7 @@ public class OperatoerDTO {
 	private String cpr;
 	private String password;
 	private boolean active;
+	private boolean inactive;
 	private boolean loggedIn;
 	private boolean admin;
 
@@ -20,6 +21,7 @@ public class OperatoerDTO {
 		this.cpr = cpr;
 		this.password = password;
 		active = true;
+		inactive = false;
 		this.admin = admin;
 	}
 
@@ -27,6 +29,9 @@ public class OperatoerDTO {
 		return active;
 	}
 
+	public boolean inactive() {
+		return inactive;
+	}
 	public void deactivate() {
 		active = false;
 	}

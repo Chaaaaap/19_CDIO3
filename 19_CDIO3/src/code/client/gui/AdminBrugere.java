@@ -1,28 +1,14 @@
 package code.client.gui;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.jetty.server.Authentication.User;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
-import code.client.dal.IOperatoerDAO;
 import code.client.dal.OperatoerDAO;
 import code.client.dal.OperatoerDTO;
 
@@ -30,14 +16,10 @@ import code.client.dal.OperatoerDTO;
 
 public class AdminBrugere extends Composite {
 
-
-
-	private OperatoerDAO oprDAO;
-	private OperatoerDTO oprDTO;
 	private MainMenu menu;
 	private MainView main;
-	private FlexTable fTable = new FlexTable();
-	private FlexTable ft = new FlexTable();
+	private OperatoerDAO oprDAO;
+	private OperatoerDTO oprDTO;
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel hPanel = new HorizontalPanel();
 	private Button opret;
@@ -46,11 +28,13 @@ public class AdminBrugere extends Composite {
 	private Button deaktiver;
 	ArrayList<OperatoerDTO> oprList;
 
-	public AdminBrugere(MainView main, MainMenu menu, OperatoerDAO oprDAO) {
-		initWidget(fTable);
-		this.main = main;
+	public AdminBrugere(MainView main, MainMenu menu, OperatoerDAO oprDAO, OperatoerDTO oprDTO) {
+		initWidget(hPanel);
 		this.menu = menu;
+		this.main = main;
 		this.oprDAO = oprDAO;
+		this.oprDTO = oprDTO;
+		hPanel.setBorderWidth(1);
 
 		opret = new Button("Opret ny bruger");
 		opret.setWidth("150px");
@@ -62,14 +46,15 @@ public class AdminBrugere extends Composite {
 		tilbage.setWidth("150px");
 
 		opret.addClickHandler(new OpretBrugerHandler());
-		deaktiver.addClickHandler(new DeaktiverBrugerHandler(oprDAO));
-		opdater.addClickHandler(new OpdaterBrugerHandler(oprDAO));
+		deaktiver.addClickHandler(new DeaktiverBrugerHandler());
+		opdater.addClickHandler(new OpdaterBrugerHandler());
 		tilbage.addClickHandler(new TilbageHandler());
 
-		fTable.setWidget(0, 0, opret);
-		fTable.setWidget(0, 1, deaktiver);
-		fTable.setWidget(0, 2, opdater);
-		fTable.setWidget(0, 3, tilbage);
+		hPanel.add(opret);
+		hPanel.add(deaktiver);
+		hPanel.add(opdater);
+		hPanel.add(tilbage);
+	
 
 	}
 
@@ -78,35 +63,36 @@ public class AdminBrugere extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
+			
+			main.clearMain();
+			
+			AdminBrugere ab = new AdminBrugere(main, menu, oprDAO, oprDTO);
+			main.attach(ab);
+			
+			OpretBruger ob = new OpretBruger(main, menu, oprDAO);
+			main.attach(ob);
+			
 
-			OpdaterBruger opdater = new OpdaterBruger(main, menu, oprDAO);
-			fTable.setWidget(1, 0, opdater);
-
-		}	
+		}
 
 	}
 
 	private class DeaktiverBrugerHandler implements ClickHandler {
 
-		private OperatoerDTO opr;
-		private ArrayList<OperatoerDTO> oprList;
-		private OperatoerDAO oprDAO;
-
-		public DeaktiverBrugerHandler(OperatoerDAO oprDAO) {
-			this.oprDAO = oprDAO;
-			oprList = this.oprDAO.getOperatoerer();
-		}
-
-
 		@Override
 		public void onClick(ClickEvent event) {
-
-			vPanel.clear();
-			hPanel.clear();
-
-
-			DeaktiverBruger deaktiver = new DeaktiverBruger(main, menu, oprDAO);
-			fTable.setWidget(1, 1, deaktiver);
+			main.clearMain();
+			
+			AdminBrugere ab = new AdminBrugere(main, menu, oprDAO, oprDTO);
+			main.attach(ab);
+			
+			
+			DeaktiverBruger db = new DeaktiverBruger(oprDAO, oprDTO);
+			main.attach(db);
+			
+//			OpretBruger ob = new OpretBruger(main, menu, oprDAO);
+//			main.attach(ob);
+					
 
 		}
 
@@ -114,18 +100,13 @@ public class AdminBrugere extends Composite {
 
 	private class OpdaterBrugerHandler implements ClickHandler {
 
-		private OperatoerDAO oprDAO;
-
-		public OpdaterBrugerHandler(OperatoerDAO oprDAO) {
-			this.oprDAO = oprDAO;
-		}
-
-
 		@Override
 		public void onClick(ClickEvent event) {
-
-			OpretBruger opret = new OpretBruger(main, menu, oprDAO);
-			fTable.setWidget(1, 2, opret);
+			
+			main.clearMain();
+			
+			AdminBrugere ab = new AdminBrugere(main, null, null, oprDTO);
+			main.attach(ab);
 
 		}
 	}
@@ -135,11 +116,10 @@ public class AdminBrugere extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 
-
 			main.clearMain();
 			menu.setButtonsVisible();
-
 		}
 
 	}
 }
+

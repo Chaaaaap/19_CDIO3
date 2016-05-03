@@ -111,9 +111,6 @@ public class DeaktiverBruger extends Composite{
 						t.setWidget(eventRowIndex, 3, aktiver);
 						t.clearCell(eventRowIndex, 4);
 					}
-//					}else
-//						t.setWidget(eventRowIndex, 2, aktiver);
-//					
 				}
 
 			});
