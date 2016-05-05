@@ -35,6 +35,7 @@ public class DeaktiverBruger extends Composite{
 		t.getFlexCellFormatter().setWidth(0, 0, "130px");
 		t.getFlexCellFormatter().setWidth(0, 1, "80px");
 		t.getFlexCellFormatter().setWidth(0, 2, "80px");
+		t.getFlexCellFormatter().setWidth(0, 3, "110px");
 
 		t.addStyleName("FlexTable");
 		t.getRowFormatter().addStyleName(0,"FlexTable-Header");
@@ -43,29 +44,30 @@ public class DeaktiverBruger extends Composite{
 		t.setText(0, 0, "Navn");
 		t.setText(0, 1, "ID");
 		t.setText(0, 2, "Status");
+		t.setText(0, 3, "Deaktiver/Aktiver");
 
 
 		// populate table and add delete anchor to each row
 		for (int i=0; i < oprList.size(); i++) {
-			
+
 			t.setText(i+1, 0, oprList.get(i).getOprNavn());
 			t.setText(i+1, 1, "" + oprList.get(i).getOprID());
 
+			Anchor deaktiver = new Anchor("deaktiver");
+			deaktiver.addClickHandler(new DeaktiverHandler());
+			Anchor aktiver = new Anchor("aktiver");
+			aktiver.addClickHandler(new AktiverHandler());
+
+
 			if(oprList.get(i).isActive()) {
 				t.setText(i+1, 2, "Aktiv");
-				Anchor deaktiver = new Anchor("deaktiver");
 				t.setWidget(i+1, 3, deaktiver);
-				deaktiver.addClickHandler(new DeaktiverHandler());
+
 			}else {
 				t.setText(i+1, 2, "Ikke aktiv");
-				Anchor aktiver = new Anchor("aktiver");
-				t.setWidget(i+1, 3, aktiver);
-				aktiver.addClickHandler(new AktiverHandler());
+				t.setWidget(i+1, 3, aktiver);	
+
 			}
-			
-
-			
-
 		}
 
 		vPanel.add(t);
@@ -76,72 +78,61 @@ public class DeaktiverBruger extends Composite{
 	private class DeaktiverHandler implements ClickHandler {
 		public void onClick(ClickEvent event) {
 
-			
-			
-			// if previous cancel open - force cancel operation�
-			if (previousCancel != null)
-				previousCancel.fireEvent(new ClickEvent(){});
+
 
 
 			// get rowindex where event happened
 			final int eventRowIndex = t.getCellForEvent(event).getRowIndex();
-			
+
 			// get delete anchor ref for cancel operation
 			final Anchor deaktiver =  (Anchor) event.getSource();
 
-			
+
 			final Anchor aktiver = new Anchor("aktiver");
 			aktiver.addClickHandler(new AktiverHandler());
-			
-			Anchor ok = new Anchor("ok");
-			ok.addClickHandler(new ClickHandler() {
 
-				@Override
-				public void onClick(ClickEvent event) {
 
-					// here you will normally fetch the primary key of the row 
-					// and use it for location the object to be deleted
-					if(eventRowIndex == oprDTO.getOprID()) {
-						Window.alert("Du kan ikke deaktivere administratoren");
-						t.setWidget(eventRowIndex, 3, deaktiver);
-						t.clearCell(eventRowIndex, 4);
-					}else {
-						oprDAO.deactivatePerson(eventRowIndex);
-						t.setText(eventRowIndex, 2, "Ikke aktiv");
-						t.setWidget(eventRowIndex, 3, aktiver);
-						t.clearCell(eventRowIndex, 4);
-					}
-				}
+			if(eventRowIndex == oprDTO.getOprID()) {
+				Window.alert("Du kan ikke deaktivere administratoren");
+				t.setWidget(eventRowIndex, 3, deaktiver);
+				t.clearCell(eventRowIndex, 4);
+			}else {
+				oprList.get(eventRowIndex-1).deactivate();
+				t.setText(eventRowIndex, 2, "Ikke aktiv");
+				t.setWidget(eventRowIndex, 3, aktiver);
+				Window.alert("Din bruger er nu deaktiveret");
+			}
 
-			});
-
-			Anchor fortryd = new Anchor("fortryd");
-			previousCancel = fortryd;
-			fortryd.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					t.setWidget(eventRowIndex, 3, deaktiver);
-					t.clearCell(eventRowIndex, 4);
-				}
-
-			});
-
-			// showing ok and cancel widgets
-			t.setWidget(eventRowIndex, 3 , ok);
-			t.setWidget(eventRowIndex, 4 , fortryd);
 		}
-
 
 	}
-	
+
+
+
+
 	private class AktiverHandler implements ClickHandler {
 		public void onClick(ClickEvent event) {
-			Window.alert("Test");
-			
+
+
+			// get rowindex where event happened
+			final int eventRowIndex = t.getCellForEvent(event).getRowIndex();
+
+
+			final Anchor deaktiver = new Anchor("deaktiver");
+			deaktiver.addClickHandler(new DeaktiverHandler());
+
+
+			oprList.get(eventRowIndex-1).activatePerson();
+			t.setText(eventRowIndex, 2, "Aktiv");
+			t.setWidget(eventRowIndex, 3, deaktiver);
+
+			Window.alert("Din bruger er nu aktiv!");
+
 		}
-		
+
 	}
 
 }
+
+
 

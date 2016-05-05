@@ -90,8 +90,6 @@ public class AdminBrugere extends Composite {
 			DeaktiverBruger db = new DeaktiverBruger(oprDAO, oprDTO);
 			main.attach(db);
 			
-//			OpretBruger ob = new OpretBruger(main, menu, oprDAO);
-//			main.attach(ob);
 					
 
 		}
@@ -105,8 +103,11 @@ public class AdminBrugere extends Composite {
 			
 			main.clearMain();
 			
-			AdminBrugere ab = new AdminBrugere(main, null, null, oprDTO);
+			AdminBrugere ab = new AdminBrugere(main, menu, oprDAO, oprDTO);
 			main.attach(ab);
+			
+			OpdaterBruger opdater = new OpdaterBruger();
+			main.attach(opdater);
 
 		}
 	}

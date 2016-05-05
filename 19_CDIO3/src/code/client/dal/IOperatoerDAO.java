@@ -21,6 +21,7 @@ public interface IOperatoerDAO {
 	public OperatoerDTO getOperatoer(int oprID); 
 	public void addPerson(OperatoerDTO user);
 	public void deactivatePerson(int oprID);
+	public void activatePerson(int oprID);
 	public void editPerson();
 	public void showPerson();
 }

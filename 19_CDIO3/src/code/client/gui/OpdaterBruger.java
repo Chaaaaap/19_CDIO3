@@ -1,42 +1,30 @@
 package code.client.gui;
 
-import java.util.ArrayList;
-
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import code.client.dal.OperatoerDAO;
-import code.client.dal.OperatoerDTO;
 
 public class OpdaterBruger extends Composite {
 
 
 	private VerticalPanel vPanel = new VerticalPanel();
-	private MainView main;
-	private MainMenu menu;
-	private OpretBruger opret;
-	private DeaktiverBruger deaktiver;
-	private OperatoerDAO oprDAO;
-	private OperatoerDTO opr;
-	private ArrayList<OperatoerDTO> oprList;
+//	private MainView main;
+//	private MainMenu menu;
+//	private OpretBruger opret;
+//	private DeaktiverBruger deaktiver;
+//	private OperatoerDAO oprDAO;
+//	private OperatoerDTO opr;
+//	private ArrayList<OperatoerDTO> oprList;
 
-	public OpdaterBruger(MainView main, MainMenu menu, OperatoerDAO oprDAO) {
+	public OpdaterBruger() {
 		initWidget(vPanel);
 //		this.main = main;
 //		this.menu = menu;
 //		this.oprDAO = oprDAO;
 //		oprList = this.oprDAO.getOperatoerer();
 //		
-//		
+		
+		
 //
 //		for (int i=0; i < oprList.size(); i++) {
 //			
