@@ -20,7 +20,7 @@ public class OpdaterBruger extends Composite {
 		initWidget(vPanel);
 //		this.main = main;
 //		this.menu = menu;
-//		this.oprDAO = oprDAO;
+//		this.oprDAO = oprDAO; 
 //		oprList = this.oprDAO.getOperatoerer();
 //		
 		
